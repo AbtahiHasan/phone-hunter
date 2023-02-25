@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phone hunter</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@2.51.1/dist/full.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <main id="main" class="max-w-[1200px] mx-auto mt-5">
+      <form class="mx-auto w-1/2 my-10" id="search-form">
+        <input
+          id="search-input"
+          type="text"
+          placeholder="Type here"
+          class="input input-bordered input-secondary w-full max-w-xs"
+          autocomplete="off"
+        />
+        <button class="btn" id="search-Btn">Search</button>
+      </form>
+
+      <section class="grid grid-cols-3 gap-5" id="phones-container"></section>
+      <p class="text-center text-3xl font-bold mt-10 hidden" id="result-status">
+        Result not found
+      </p>
+      <button id="show-more-btn" class="btn block mx-auto my-5 hidden">
+        Load More
+      </button>
+    </main>
+    <section
+      id="loader"
+      class="flex items-center justify-center absolute left-0 top-0 right-0 bottom-0 z-50 hidden"
+    >
+      <img class="w-9 h-9" src="./assets/loading-icon/loading.gif" alt="" />
+    </section>
+
+    <script src="./js/script.js"></script>
+  </body>
+</html>
