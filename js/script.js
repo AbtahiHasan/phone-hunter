@@ -10,20 +10,19 @@ const popup = async (id) => {
     const url = `https://openapi.programming-hero.com/api/phone/${id}`
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data)
     title.innerText = `${data.data.brand}`
     details.innerHTML = `
 
     <img src="${data.data.image ? data.data.image : "img not found"}"/>
     <p>Phone Name: ${data.data.name ? data.data.name : "name not found"}</p>
     <p>Release Date: ${data.data.releaseDate ? data.data.releaseDate : "release Date not found"}</p>
-    <p>display Size: ${data.data.mainFeatures.displaySize ? data.data.mainFeatures.displaySize : "display Size Date not found"}</p>
-    <p>Storage: ${data.data.mainFeatures.storage ? data.data.mainFeatures.storage : "storage Date not found"}</p>
-    <p>Sensors: ${data.data.mainFeatures.sensors ? data.data.mainFeatures.sensors : "sensors Date not found"}</p>
+    <p>display Size: ${data.data.mainFeatures ? data.data.mainFeatures.displaySize : "display Size Date not found"}</p>
+    <p>Storage: ${data.data.mainFeatures ? data.data.mainFeatures.storage : "storage Date not found"}</p>
+    <p>Sensors: ${data.data.mainFeatures ? data.data.mainFeatures.sensors : "sensors Date not found"}</p>
     `
 }
 
-const showData = async (searchText) => {
+const showData = async (searchText, cardCount) => {
     loader = true;
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
     const response = await fetch(url);
@@ -31,18 +30,14 @@ const showData = async (searchText) => {
     
     let phones = data.data;
     const phoneContainer = document.getElementById("phones-container");
-    if(phones.length < 9) {
-        cardCounter = phones.length;
-    }
-    if(cardCounter > phones.length) {
-        cardCounter = phones.length;
-    }
     if(phones.length !== cardCounter) {
         showMoreBtn.classList.remove("hidden");
+        showMoreBtn.classList.add("block");
     } else {
         showMoreBtn.classList.add("hidden");
     }
-    phones = phones.splice(0, cardCounter)
+    
+    phones = phones.splice(0, cardCount)
     phoneContainer.innerHTML = "";
     phones.forEach(phone => {
         let div = document.createElement("div");
@@ -80,12 +75,14 @@ const showData = async (searchText) => {
     const loaderContainer = document.getElementById("loader");
     if(loader) {
         loaderContainer.classList.remove("hidden");
+        loaderContainer.classList.add("flex");
     } else {
         loaderContainer.classList.add("hidden");
     }
     const resultStatus = document.getElementById("result-status")
     if(phones.length === 0) {
         resultStatus.classList.remove("hidden");
+        showMoreBtn.classList.add("hidden");
     }
     else {
         resultStatus.classList.add("hidden");
@@ -109,4 +106,4 @@ showMoreBtn.onclick = () => {
     showData(inputValue, cardCounter);
 }
 
-
+popup()
